@@ -1,0 +1,693 @@
+\documentclass[11pt,oneside]{article}
+
+% -------------------------------------------------
+%                PAQUETES
+% -------------------------------------------------
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{biblatex}
+\addbibresource{referencias.bib}
+
+% -------------------------------------------------
+%                CONFIGURACIÓN
+% -------------------------------------------------
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+	citecolor=blue
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Programación y Algoritmos}
+\lhead{Universidad de La Habana}
+\rfoot{\thepage}
+
+
+% -------------------------------------------------
+%        ENTORNOS MATEMÁTICOS
+% -------------------------------------------------
+
+% --- Teoremas ---
+\newtheorem{teorema}{Teorema}[section]
+
+% --- Proposiciones ---
+\newtheorem{proposicion}{Proposición}[section]
+
+% --- Lemas ---
+\newtheorem{lema}{Lema}[section]
+
+% --- Corolarios ---
+\newtheorem{corolario}{Corolario}[section]
+
+% --- Definiciones ---
+\theoremstyle{definition}
+\newtheorem{definicion}{Definición}[section]
+
+% --- Ejercicios ---
+\newtheorem{ejercicio}{Ejercicio}[section]
+
+% --- Ejemplos ---
+\newtheorem{ejemplo}{Ejemplo}[section]
+
+% --- Observaciones ---
+\theoremstyle{remark}
+\newtheorem{observacion}{Observación}[section]
+
+% -------------------------------------------------
+%           CAJAS ESPECIALES
+% -------------------------------------------------
+
+\newtcolorbox{advertencia}{
+	colback=red!5!white,
+	colframe=red!75!black,
+	title=Advertencia,
+	fonttitle=\bfseries
+}
+
+\newtcolorbox{nota}{
+	colback=blue!5!white,
+	colframe=blue!75!black,
+	title=Nota Importante,
+	fonttitle=\bfseries
+}
+
+\newtcolorbox{intuicion}{
+	colback=green!5!white,
+	colframe=green!60!black,
+	title=Idea Intuitiva,
+	fonttitle=\bfseries
+}
+
+\newtcolorbox{conexion}{
+	colback=yellow!10!white,
+	colframe=yellow!60!black,
+	title=Conexión con otras asignaturas,
+	fonttitle=\bfseries
+}
+
+% -------------------------------------------------
+%           ENTORNO PARA REFERENCIAS DE FUENTE
+% -------------------------------------------------
+
+\newcommand{\fuente}[1]{
+	\begin{flushright}
+		{\small \textit{Fuente: #1}}
+	\end{flushright}
+}
+
+% -------------------------------------------------
+%                CÓDIGO
+% -------------------------------------------------
+
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+
+\lstset{
+	backgroundcolor=\color{codegray},
+	basicstyle=\ttfamily\small,
+	breaklines=true,
+	frame=single,
+	numbers=left,
+	numberstyle=\tiny,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green!60!black},
+	stringstyle=\color{red},
+	showstringspaces=false
+}
+
+% -------------------------------------------------
+%                INFORMACIÓN
+% -------------------------------------------------
+
+\title{\textbf{Programación y Algoritmos} \\
+	Facultad de Matemática y Computación \\
+	Universidad de La Habana}
+
+\author{Lic. Eric Barcelo, Msc. Rocio Ortiz, Lic. Cristian Vigoa}
+\date{}
+
+\begin{document}
+	
+	\maketitle
+	\tableofcontents
+
+	\vspace{5cm}
+	\begin{nota}
+		Todos los ejemplos de código de esta conferencia se encuentran en el notebook asociado a ella
+	\end{nota}
+	\newpage
+	
+	\section{Introducción a los Algoritmos}
+
+	Un algoritmo no es algo que nació con las computadoras.
+	Las computadoras nacieron porque ya existían algoritmos. Mucho antes de la informática, los seres humanos llevaban siglos —incluso milenios— diseñando y ejecutando algoritmos para resolver problemas. Cada vez que alguien establecía un procedimiento sistemático para obtener un resultado, estaba construyendo un algoritmo, aunque no usara esa palabra. De hecho, la propia palabra algoritmo proviene de Al-Juarismi (siglo IX), cuyos métodos sistemáticos para resolver ecuaciones eran esencialmente algoritmos algebraicos.\\
+	
+	\begin{conexion}
+		En la carrera ya  hemos visto algunos algoritmos como el de derivación de  una función o el de Euclides para la busqueda del máximo común divisor. 
+	\end{conexion}
+	
+	\vspace{0.2cm}
+	
+
+	\textbf{¿Que es un algoritmos?}\\
+	Informalmente podemos decir que un algoritmo es una receta para resolver un problema especifico. Como receta en fin tiene que constar con una serie de pasos claros y ordenados que si se siguen correctamente te deben llevar de un estado inicial a un estado final, que es no debe variar independientemente de quien lo ejecute.
+	
+	\begin{definicion}
+		Un \textbf{algoritmo} es un conjunto finito de reglas que especifican una secuencia de operaciones para resolver un tipo de problema especifico.\\
+		Debe satisfacer 5 características importantes :
+		\begin{itemize}
+			\item (Finitud) Debe terminar después de un número finito de pasos.
+			\item (Precisión) Cada paso debe estar definido de manera exacta y no ambigua.
+			\item (Entrada) Tiene cero o más entradas.
+			\item (Salida) Produce al menos una salida.
+			\item (Efectividad) Cada operación debe ser lo suficientemente básica como para poder realizarse en un tiempo finito.
+		\end{itemize}
+	\end{definicion}
+	\fuente{The Art of Computer Programming}
+	
+	\begin{ejemplo}
+		Un algoritmo con 0 entradas es el que te devuelve la suma de los números del 1 al 100
+	\end{ejemplo}
+	\begin{observacion}
+		Es interesante e importante destacar que la definición que se propone no depende de computadoras.
+	\end{observacion}
+
+	\begin{conexion}
+		Una visión matemática: Sean $X$ el conjunto de entradas y $Y$ el conjunto de salidas. 
+		Un algoritmo implementa una función
+		
+		\[
+		f : X \to Y
+		\]
+		
+		tal que, para todo $x \in X$, el valor $f(x)$ es computable mediante 
+		un proceso finito.
+	\end{conexion}
+
+	\begin{ejemplo}
+		Un algoritmo para determinar si un numero es primo.
+			
+		\begin{lstlisting}[language=Python]
+def es_primo(n):
+	if n < 2:
+		return False
+	for i in range(2, int(n**0.5) + 1):
+		if n % i == 0:
+			return False
+	return True
+		\end{lstlisting}
+	\end{ejemplo}
+
+	\begin{ejercicio}
+		Menciona 10 algoritmos que hayas estudiado previamente (en cualquier asignatura). Para cada uno de ellos, describe de manera clara y ordenada la secuencia de pasos que lo componen (su “receta”).
+	\end{ejercicio}
+
+El diseño y análisis de algoritmos son pilares fundamentales en la matemática moderna. Cuando formulamos un algoritmo desde el punto de vista teórico, una de las primeras preocupaciones es demostrar su corrección: asegurarnos de que, bajo las hipótesis del modelo matemático, siempre produce una solución válida para el problema planteado.
+
+Sin embargo, en la práctica, muchos problemas reales involucran instancias tan grandes —ya sea por la cantidad de datos, la dimensión o la complejidad de su estructura— que resultan imposibles de resolver manualmente en un tiempo razonable. La llegada de la computación digital permitió enfrentar este tipo de situaciones mediante la implementación de algoritmos en máquinas capaces de procesar enormes volúmenes de información a gran velocidad.
+
+Pero pasar del plano teórico al computacional no es un simple trámite: aparecen nuevos desafíos. Por un lado, las computadoras trabajan con sistemas numéricos finitos, lo que introduce limitaciones inevitables como errores de redondeo, desbordamientos, pérdida de precisión o inestabilidad numérica. Estos llamados errores numéricos pueden hacer que el resultado computado difiera, a veces de forma significativa, de la solución exacta del modelo matemático ideal.
+
+Por otro lado, incluso si el algoritmo es matemáticamente correcto, su implementación puede no serlo. Un error en la programación, una mala interpretación de la especificación o un detalle lógico mal resuelto pueden invalidar el resultado. Por eso, la verificación y validación del código —mediante pruebas, depuración o análisis formal— se vuelven etapas esenciales del proceso.
+
+Finalmente, no basta con que un algoritmo sea correcto: también debe ser eficiente. Como el tiempo de ejecución y la memoria disponible son recursos limitados, es fundamental estudiar su complejidad computacional, tanto desde un punto de vista teórico (por ejemplo, mediante la notación O) como a través de pruebas experimentales. Este análisis nos permite prever cómo se comportará el algoritmo cuando el tamaño del problema crezca y evaluar si es realmente viable en la práctica.
+	% =================================================
+	\section{Tema 1: Introducción a la Complejidad Algorítmica}
+
+Cuando pensamos en cuánto tarda un algoritmo en ejecutarse, es natural considerar que una forma de medirlo consiste en calcular el tiempo explícito que toma cada algoritmo al ejecutarse. Esta será nuestra primera aproximación para determinar cuán eficiente es un algoritmo.\\
+
+Para ello, analizaremos el comportamiento de los algoritmos en los siguientes problemas:
+
+\begin{enumerate}
+	\item ¿Cuál es el valor de la suma de dos números $A$ y $B$?
+	\item ¿Cuál es el valor de la suma de los números del $1$ al $n-1$?
+	\item Determinar el valor de $n^{2}$.
+	\item Encontrar el subarreglo de suma máxima en una lista de $n$ números.
+\end{enumerate}
+
+Función que nos permitirá medir el tiempo de los algoritmos:
+
+\begin{lstlisting}[language=Python]
+import time
+
+def medir_tiempo(func, *args):
+    inicio = time.time()
+    resultado = func(*args)
+    tiempo_transcurrido = time.time() - inicio
+    return tiempo_transcurrido
+\end{lstlisting}
+
+Analicemos ahora el comportamiento del tiempo para el problema \textbf{1}.\\
+
+\begin{lstlisting}
+Resumen de tiempos (segundos):
+Caso 1: 1 + 2 -> 0.00000000 s
+Caso 2: 10 + 20 -> 0.00000000 s
+Caso 3: 100 + 200 -> 0.00000000 s
+Caso 4: 1000 + 2000 -> 0.00000000 s
+Caso 5: 10000 + 20000 -> 0.00000000 s
+Caso 6: 1000000 + 2000000 -> 0.00000000 s
+Caso 7: 1000000000 + 2000000000 -> 0.00000000 s
+\end{lstlisting}
+
+Es razonable intuir que el tiempo para realizar una suma es prácticamente despreciable. Este hecho será útil cuando introduzcamos otras formas de analizar algoritmos.\\
+
+Para el problema \textbf{2}, el algoritmo propuesto consiste en almacenar en una variable el resultado acumulado al iterar desde $1$ hasta $n-1$. Veamos su rendimiento en algunos casos:
+
+\begin{lstlisting}
+Resumen de tiempos (segundos):
+Caso 1: Suma del 1 al 10 -> 0.00000000 s
+Caso 2: Suma del 1 al 20 -> 0.00000000 s
+Caso 3: Suma del 1 al 100 -> 0.00000000 s
+Caso 4: Suma del 1 al 1000 -> 0.00000000 s
+Caso 5: Suma del 1 al 10000 -> 0.00000000 s
+Caso 6: Suma del 1 al 1000000 -> 0.13128829 s
+Caso 7: Suma del 1 al 100000000 -> 7.18329406 s
+Caso 8: Suma del 1 al 200000000 -> 12.08572149 s
+Caso 9: Suma del 1 al 700000000 -> 53.65519309 s
+Caso 10: Suma del 1 al 1000000000 -> 65.82658482 s
+\end{lstlisting}
+
+Se observa que, al aumentar el valor de $n$, el tiempo también crece. Esto nos lleva a considerar que el tiempo depende del tamaño de la entrada. Surgen entonces varias preguntas: ¿dependerá de algún otro factor? ¿Podremos predecir cuánto tardará para $n = 1\,000\,000\,000$ sin ejecutarlo?\\
+
+Para el problema \textbf{3}, el algoritmo propuesto consiste en sumar $n$ veces la suma de los números del $1$ hasta $n$. A continuación, se muestran algunos tiempos de ejecución:
+
+\begin{lstlisting}
+Resumen de tiempos (segundos):
+Caso 1: Cuadrado de 10 -> 0.00000000 s
+Caso 2: Cuadrado de 20 -> 0.00000000 s
+Caso 3: Cuadrado de 100 -> 0.00000000 s
+Caso 4: Cuadrado de 1000 -> 0.07154536 s
+Caso 5: Cuadrado de 2000 -> 0.19181824 s
+Caso 6: Cuadrado de 10000 -> 4.82975125 s
+Caso 7: Cuadrado de 20000 -> 17.72740793 s
+Caso 8: Cuadrado de 100000 -> 503.21836758 s
+\end{lstlisting}
+
+Los problemas 2 y 3 nos permiten comprender que el tiempo de ejecución depende del tamaño de la entrada. Sin embargo, el método de \textit{timing} no nos permite predecir con claridad el tiempo para entradas más grandes sin realizar la ejecución.\\
+
+No utilizaremos el método de \textit{timing} para el problema 4, ya que presenta varias limitaciones para analizar la eficiencia de un algoritmo:
+
+\begin{itemize}
+	\item No permite predecir el tiempo sin ejecutar el algoritmo.
+	\item Depende de la computadora en la que se ejecute (puedes comprobarlo ejecutando el notebook asociado en tu dispositivo).
+	\item Depende del lenguaje de programación utilizado.
+\end{itemize}
+
+Nuestra siguiente forma de calcular la eficiencia de un algoritmo superará estas limitaciones: utilizaremos el método de \textit{conteo de operaciones}.\\
+
+Asumiremos que las siguientes operaciones básicas toman tiempo constante (aunque dicha constante no necesariamente sea la misma para todas; trabajaremos bajo el modelo RAM de costo uniforme, que asigna costo 1 a cada una):
+
+\begin{itemize}
+	\item Operaciones matemáticas.
+	\item Comparaciones.
+	\item Asignaciones de variables.
+	\item Acceso a posiciones de memoria.
+	\item Llamadas recursivas.
+	\item Instrucción \texttt{return}.
+\end{itemize}
+
+Contemos ahora el número de operaciones básica
+
+
+\subsection*{Problema 1}
+
+\begin{lstlisting}[language=Python]
+def suma(A,B):
+    return A+B
+\end{lstlisting}
+
+\textbf{Operaciones fuera de ciclos}
+
+\begin{itemize}
+    \item Acceso a $A$ y $B$ : 2
+    \item Suma $A+B$ : 1
+    \item \texttt{return} : 1
+\end{itemize}
+
+\textbf{Expresión total}
+
+\[
+T(n) = 4
+\]
+
+\[
+T(n) = c
+\]
+
+\vspace{0.5cm}
+
+\subsection*{Problema 2}
+
+\begin{lstlisting}[language=Python]
+def suma_n(n):
+    res=0
+    for i in range(1,n):
+        res+=i
+    return res
+\end{lstlisting}
+
+\textbf{Operaciones fuera del ciclo}
+
+\begin{itemize}
+    \item Asignación $res=0$ : 1
+    \item Inicialización del índice $i$ : 1
+    \item \texttt{return} : 1
+\end{itemize}
+
+Costo: 3
+
+\textbf{Estructura del ciclo}
+
+\begin{itemize}
+    \item Comparaciones : $n$
+    \item Incrementos : $n-1$
+\end{itemize}
+
+Costo estructural:
+
+\[
+n + (n-1) = 2n - 1
+\]
+
+\textbf{Cuerpo del ciclo (se ejecuta $n-1$ veces)}
+
+En cada iteración:
+
+\begin{itemize}
+    \item Acceso a $res$ : 1
+    \item Acceso a $i$ : 1
+    \item Suma : 1
+    \item Asignación : 1
+\end{itemize}
+
+Total por iteración: 4
+
+Costo total del cuerpo:
+
+\[
+4(n-1)
+\]
+
+\textbf{Expresión total}
+
+\[
+T(n) = 3 + (2n-1) + 4(n-1)
+\]
+
+\[
+T(n) = 3 + 2n - 1 + 4n - 4
+\]
+
+\[
+T(n) = 6n - 2
+\]
+
+\[
+T(n) = c_1 n - c_2
+\]
+
+\vspace{0.5cm}
+
+\subsection*{Problema 3}
+
+\begin{lstlisting}[language=Python]
+def cuadrado(n):
+    res=0
+    for i in range(n):
+        for j in range(n):
+            res+=1
+    return res
+\end{lstlisting}
+
+\textbf{Operaciones fuera de los ciclos}
+
+\begin{itemize}
+    \item Asignación $res=0$ : 1
+    \item \texttt{return} : 1
+\end{itemize}
+
+Costo: 2
+
+\textbf{Estructura del ciclo externo}
+
+\begin{itemize}
+    \item Inicialización : 1
+    \item Comparaciones : $n+1$
+    \item Incrementos : $n$
+\end{itemize}
+
+Costo estructural externo:
+
+\[
+1 + (n+1) + n = 2n + 2
+\]
+
+\textbf{Estructura del ciclo interno (por cada iteración externa)}
+
+\begin{itemize}
+    \item Inicialización : 1
+    \item Comparaciones : $n+1$
+    \item Incrementos : $n$
+\end{itemize}
+
+Costo estructural interno por iteración externa:
+
+\[
+1 + (n+1) + n = 2n + 2
+\]
+
+\textbf{Cuerpo del ciclo interno}
+
+En cada ejecución:
+
+\begin{itemize}
+    \item Acceso a $res$ : 1
+    \item Suma : 1
+    \item Asignación : 1
+\end{itemize}
+
+Total por ejecución: 3
+
+Costo total del cuerpo por iteración externa:
+
+\[
+3n
+\]
+
+\textbf{Costo total del ciclo interno}
+
+\[
+(2n+2) + 3n = 5n + 2
+\]
+
+\textbf{Costo total considerando las $n$ iteraciones externas}
+
+\[
+n(5n+2) = 5n^2 + 2n
+\]
+
+\textbf{Expresión total}
+
+\[
+T(n) = 2 + (2n+2) + 5n^2 + 2n
+\]
+
+\[
+T(n) = 5n^2 + 4n + 4
+\]
+
+\[
+T(n) = c_1 n^2 + c_2 n + c_3
+\]
+
+\vspace{0.5cm}
+
+\subsection*{Problema 4}
+
+Sea $n = \text{len(arr)}$.
+
+\begin{lstlisting}[language=Python]
+def max_subarray_sum_n2(arr):
+
+    max_sum = arr[0]
+    
+    for i in range(len(arr)):
+        current_sum = 0
+        for j in range(i, len(arr)):
+            current_sum += arr[j]
+            max_sum = max(max_sum, current_sum)
+    
+    return max_sum
+\end{lstlisting}
+
+\textbf{Operaciones fuera de los ciclos}
+
+\begin{itemize}
+    \item Acceso a \texttt{arr[0]} : 1
+    \item Asignación a \texttt{max\_sum} : 1
+    \item \texttt{return} : 1
+\end{itemize}
+
+Costo: 3
+
+\textbf{Estructura del ciclo externo}
+
+\begin{itemize}
+    \item Inicialización : 1
+    \item Comparaciones : $n+1$
+    \item Incrementos : $n$
+\end{itemize}
+
+Costo estructural externo:
+
+\[
+2n + 2
+\]
+
+\textbf{Estructura total del ciclo interno}
+
+Número total de iteraciones internas:
+
+\[
+\sum_{i=0}^{n-1} (n-i)
+=
+\frac{n(n+1)}{2}
+\]
+
+Costo estructural interno total:
+
+\[
+n^2 + 3n
+\]
+
+\textbf{Cuerpo del ciclo interno}
+
+En cada iteración:
+
+\begin{itemize}
+    \item Acceso a \texttt{arr[j]} : 1
+    \item Suma : 1
+    \item Asignación : 1
+    \item Comparación : 1
+    \item Asignación : 1
+\end{itemize}
+
+Total por iteración: 5
+
+Costo total del cuerpo:
+
+\[
+\frac{5}{2} n(n+1)
+\]
+
+\textbf{Expresión total}
+
+\[
+T(n)
+=
+3
++
+(2n+2)
++
+(n^2 + 3n)
++
+\frac{5}{2} n(n+1)
+\]
+
+\[
+T(n)
+=
+\frac{7}{2} n^2
++
+\frac{17}{2} n
++
+5
+\]
+
+\[
+T(n)
+=
+c_1 n^2 + c_2 n + c
+\]
+
+
+\begin{ejercicio}
+	Describe qué hace el algoritmo propuesto en el código para el Problema 4.
+\end{ejercicio}
+
+Como se puede observar, el cálculo del número de operaciones y de las constantes asociadas $c_i$ puede llegar a ser bastante tedioso.
+
+\begin{nota}
+	Una computadora puede realizar aproximadamente $10^{9}$ operaciones por segundo.
+\end{nota}
+
+Dado el cálculo del número de operaciones y el conocimiento aproximado de cuántas operaciones realiza una computadora, podemos estimar de antemano cuánto tiempo tardará un algoritmo sin necesidad de ejecutarlo. Además, está claro que el número de operaciones no depende ni del lenguaje de programación ni de la computadora utilizada. De este modo, se superan las debilidades del método de \textit{timing}, aunque no es trivial utilizar este enfoque.
+
+\begin{ejercicio}
+	Propón nuevas implementaciones de los algoritmos de los Problemas 2–4 que varíen el número de operaciones.
+\end{ejercicio}
+
+\begin{ejercicio}
+
+Para cada función $f(n)$ y tiempo $t$ de la siguiente tabla, determine el mayor tamaño $n$ de un problema que puede resolverse en tiempo $t$, suponiendo que el algoritmo tarda $f(n)$ microsegundos.
+
+\bigskip
+
+\textbf{Tiempos disponibles:}
+
+\[
+\begin{aligned}
+1 \text{ segundo} &= 10^6 \text{ microsegundos} \\
+1 \text{ minuto} \\
+1 \text{ hora} \\
+1 \text{ día} \\
+1 \text{ mes (30 días)} \\
+1 \text{ año} \\
+1 \text{ siglo} \\
+\end{aligned}
+\]
+
+\bigskip
+
+\textbf{Funciones a considerar:}
+
+\[
+\log n,
+\quad
+\sqrt{n},
+\quad
+n,
+\quad
+n \log n,
+\quad
+n^2,
+\quad
+n^3,
+\quad
+2^n,
+\quad
+n!
+\]
+
+\end{ejercicio}
+
+En la siguiente clase estudiaremos el método más utilizado para el análisis de eficiencia.
+
+\end{document}
