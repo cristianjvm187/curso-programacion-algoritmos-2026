@@ -1,0 +1,9 @@
+[0] Config.pm:308> INFO - This is Biber 2.20
+[0] Config.pm:311> INFO - Logfile is 'Conferencia 1.blg'
+[639] biber-MSWIN64:340> INFO - === 
+[954] Biber.pm:420> INFO - Reading 'Conferencia 1.bcf'
+[1212] Biber.pm:994> INFO - Found 0 citekeys in bib section 0
+[1278] bbl.pm:676> INFO - Writing 'Conferencia 1.bbl' with encoding 'UTF-8'
+[1278] bbl.pm:779> INFO - Output to Conferencia 1.bbl
+[1293] Biber.pm:131> WARN - The file 'Conferencia 1.bcf' does not contain any citations!
+[1294] Biber.pm:133> INFO - WARNINGS: 1

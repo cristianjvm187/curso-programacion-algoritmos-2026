@@ -82,8 +82,8 @@
 }
 
 \newtcolorbox{nota}{
-	colback=blue!5!white,
-	colframe=blue!75!black,
+	colback=blue!10!white,
+	colframe=blue!60!black,
 	title=Nota Importante,
 	fonttitle=\bfseries
 }
@@ -166,7 +166,7 @@
 	
 
 	\textbf{¿Que es un algoritmos?}\\
-	Informalmente podemos decir que un algoritmo es una receta para resolver un problema especifico. Como receta en fin tiene que constar con una serie de pasos claros y ordenados que si se siguen correctamente te deben llevar de un estado inicial a un estado final, que es no debe variar independientemente de quien lo ejecute.
+	Informalmente podemos decir que un algoritmo es una receta para resolver un problema específico. Como receta en fin tiene que constar con una serie de pasos claros y ordenados que si se siguen correctamente te deben llevar de un estado inicial a un estado final, que es no debe variar independientemente de quien lo ejecute.
 	
 	\begin{definicion}
 		Un \textbf{algoritmo} es un conjunto finito de reglas que especifican una secuencia de operaciones para resolver un tipo de problema especifico.\\
@@ -182,7 +182,7 @@
 	\fuente{The Art of Computer Programming}
 	
 	\begin{ejemplo}
-		Un algoritmo con 0 entradas es el que te devuelve la suma de los números del 1 al 100
+		Un algoritmo con 0 entradas puede ser el que te sume y devuelva el resultado de la suma de los números del 1 al 100.
 	\end{ejemplo}
 	\begin{observacion}
 		Es interesante e importante destacar que la definición que se propone no depende de computadoras.
@@ -201,10 +201,10 @@
 	\end{conexion}
 
 	\begin{ejemplo}
-		Un algoritmo para determinar si un numero es primo.
+		Un algoritmo para determinar si un número es primo.
 			
 		\begin{lstlisting}[language=Python]
-def es_primo(n):
+def es_primo(n : int):
 	if n < 2:
 		return False
 	for i in range(2, int(n**0.5) + 1):
@@ -241,7 +241,7 @@ Para ello, analizaremos el comportamiento de los algoritmos en los siguientes pr
 	\item Encontrar el subarreglo de suma máxima en una lista de $n$ números.
 \end{enumerate}
 
-Función que nos permitirá medir el tiempo de los algoritmos:
+Función que nos permitirá medir el tiempo de los algoritmos, esta manera de medir la eficiencia del algoritmo la llamaremos "timimg":
 
 \begin{lstlisting}[language=Python]
 import time
@@ -286,7 +286,7 @@ Caso 10: Suma del 1 al 1000000000 -> 65.82658482 s
 
 Se observa que, al aumentar el valor de $n$, el tiempo también crece. Esto nos lleva a considerar que el tiempo depende del tamaño de la entrada. Surgen entonces varias preguntas: ¿dependerá de algún otro factor? ¿Podremos predecir cuánto tardará para $n = 1\,000\,000\,000$ sin ejecutarlo?\\
 
-Para el problema \textbf{3}, el algoritmo propuesto consiste en sumar $n$ veces la suma de los números del $1$ hasta $n$. A continuación, se muestran algunos tiempos de ejecución:
+Para el problema \textbf{3}, el algoritmo propuesto consiste en sumar $n$ veces el número $n$ que lo obtenemos sumando $n$ números 1. A continuación, se muestran algunos tiempos de ejecución:
 
 \begin{lstlisting}
 Resumen de tiempos (segundos):
@@ -323,8 +323,10 @@ Asumiremos que las siguientes operaciones básicas toman tiempo constante (aunqu
 	\item Instrucción \texttt{return}.
 \end{itemize}
 
-Contemos ahora el número de operaciones básica
-
+Contemos ahora el número de operaciones básica.\\
+\begin{definicion}
+	La cantidad de operaciones de un algoritmo se denotara por $T(n_1,n_2, ..., n_m)$ donde los $n_i$ son los parámetros de los que depende el algoritmo.
+\end{definicion}
 
 \subsection*{Problema 1}
 
@@ -344,12 +346,9 @@ def suma(A,B):
 \textbf{Expresión total}
 
 \[
-T(n) = 4
+T(A,B) = 4
 \]
 
-\[
-T(n) = c
-\]
 
 \vspace{0.5cm}
 
@@ -367,23 +366,24 @@ def suma_n(n):
 
 \begin{itemize}
     \item Asignación $res=0$ : 1
-    \item Inicialización del índice $i$ : 1
+
     \item \texttt{return} : 1
 \end{itemize}
 
-Costo: 3
+Costo: 2
 
 \textbf{Estructura del ciclo}
 
 \begin{itemize}
+	\item Inicialización del índice $i$ : 1
     \item Comparaciones : $n$
-    \item Incrementos : $n-1$
+    \item Incrementos del indice $i$ : $n-1$
 \end{itemize}
 
 Costo estructural:
 
 \[
-n + (n-1) = 2n - 1
+n + (n-1) + 1 = 2n 
 \]
 
 \textbf{Cuerpo del ciclo (se ejecuta $n-1$ veces)}
@@ -408,20 +408,10 @@ Costo total del cuerpo:
 \textbf{Expresión total}
 
 \[
-T(n) = 3 + (2n-1) + 4(n-1)
+T(n) = 2 + (2n) + 4(n-1)
 \]
 
-\[
-T(n) = 3 + 2n - 1 + 4n - 4
-\]
 
-\[
-T(n) = 6n - 2
-\]
-
-\[
-T(n) = c_1 n - c_2
-\]
 
 \vspace{0.5cm}
 
@@ -448,9 +438,9 @@ Costo: 2
 \textbf{Estructura del ciclo externo}
 
 \begin{itemize}
-    \item Inicialización : 1
+    \item Inicialización de i : 1
     \item Comparaciones : $n+1$
-    \item Incrementos : $n$
+    \item Incrementos de i : $n$
 \end{itemize}
 
 Costo estructural externo:
@@ -462,9 +452,9 @@ Costo estructural externo:
 \textbf{Estructura del ciclo interno (por cada iteración externa)}
 
 \begin{itemize}
-    \item Inicialización : 1
+    \item Inicialización de j : 1
     \item Comparaciones : $n+1$
-    \item Incrementos : $n$
+    \item Incrementos de j : $n$
 \end{itemize}
 
 Costo estructural interno por iteración externa:
@@ -513,27 +503,20 @@ T(n) = 2 + (2n+2) + 5n^2 + 2n
 T(n) = 5n^2 + 4n + 4
 \]
 
-\[
-T(n) = c_1 n^2 + c_2 n + c_3
-\]
-
 \vspace{0.5cm}
 
 \subsection*{Problema 4}
-
+El algoritmo para solucionar el problema 4, que se propone es calcular la suma de todos los posibles subarreglos y quedarnos con la mayor.\\
 Sea $n = \text{len(arr)}$.
 
 \begin{lstlisting}[language=Python]
-def max_subarray_sum_n2(arr):
-
+def max_subarray_suma(arr):
     max_sum = arr[0]
-    
     for i in range(len(arr)):
-        current_sum = 0
+        sum_actual = 0
         for j in range(i, len(arr)):
-            current_sum += arr[j]
-            max_sum = max(max_sum, current_sum)
-    
+            sum_actual += arr[j]
+            max_sum = max(max_sum, sum_actual)
     return max_sum
 \end{lstlisting}
 
@@ -550,36 +533,35 @@ Costo: 3
 \textbf{Estructura del ciclo externo}
 
 \begin{itemize}
-    \item Inicialización : 1
+    \item Inicialización de i: 1
     \item Comparaciones : $n+1$
     \item Incrementos : $n$
+	\item Incialización de la variable suma-actual : n
 \end{itemize}
 
 Costo estructural externo:
 
 \[
-2n + 2
+2n + 3
 \]
 
-\textbf{Estructura total del ciclo interno}
+\textbf{Estructura del ciclo interno (por cada iteración externa)}
 
-Número total de iteraciones internas:
-
+\begin{itemize}
+	\item Inicialización de j : 1
+	\item Comparaciones : $n-i+1$
+	\item Incrementos de j : $n-i$
+\end{itemize}
+	Costo estructural del ciclo interno:
 \[
-\sum_{i=0}^{n-1} (n-i)
-=
-\frac{n(n+1)}{2}
+\sum_{i=0}^{n-1} ((n-i)+(n-i+1)+1)
+= 2n+n(n+1)
+=n^{2}+3n
 \]
-
-Costo estructural interno total:
-
-\[
-n^2 + 3n
-\]
-
 \textbf{Cuerpo del ciclo interno}
 
-En cada iteración:
+
+En cada iteración interna de tamaño $n-i$:
 
 \begin{itemize}
     \item Acceso a \texttt{arr[j]} : 1
@@ -589,7 +571,15 @@ En cada iteración:
     \item Asignación : 1
 \end{itemize}
 
-Total por iteración: 5
+Total por iteración: 5\\
+
+Número total de iteraciones internas:
+
+\[
+\sum_{i=0}^{n-1} (n-i)
+=
+\frac{n(n+1)}{2}
+\]
 
 Costo total del cuerpo:
 
@@ -604,7 +594,7 @@ T(n)
 =
 3
 +
-(2n+2)
+(2n+3)
 +
 (n^2 + 3n)
 +
@@ -618,21 +608,12 @@ T(n)
 +
 \frac{17}{2} n
 +
-5
-\]
-
-\[
-T(n)
-=
-c_1 n^2 + c_2 n + c
+6
 \]
 
 
-\begin{ejercicio}
-	Describe qué hace el algoritmo propuesto en el código para el Problema 4.
-\end{ejercicio}
 
-Como se puede observar, el cálculo del número de operaciones y de las constantes asociadas $c_i$ puede llegar a ser bastante tedioso.
+Como se puede observar, el cálculo del número de operaciones puede llegar a ser bastante tedioso.
 
 \begin{nota}
 	Una computadora puede realizar aproximadamente $10^{9}$ operaciones por segundo.
@@ -688,6 +669,5 @@ n!
 
 \end{ejercicio}
 
-En la siguiente clase estudiaremos el método más utilizado para el análisis de eficiencia.
 
 \end{document}
