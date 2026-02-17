@@ -1,0 +1,2 @@
+# curso-programacion-algoritmos-2026
+Repositorio oficial del curso que contiene materiales, apuntes, recursos complementarios y código de apoyo. Su objetivo es facilitar el acceso centralizado a todos los contenidos necesarios para el seguimiento y estudio de la asignatura. 
